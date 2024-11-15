@@ -1,0 +1,2901 @@
+{
+	"info": {
+		"_postman_id": "3c77d4fa-6bee-4a5c-b20f-8b1698bac325",
+		"name": "ToDo_QAcart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25910187",
+		"_collection_link": "https://asd666-2218.postman.co/workspace/training-test-API~85f6a01c-ec5a-4cc2-a36f-cb73b11ce4b1/collection/25910187-3c77d4fa-6bee-4a5c-b20f-8b1698bac325?action=share&source=collection_link&creator=25910187"
+	},
+	"item": [
+		{
+			"name": "Registeration feature",
+			"item": [
+				{
+					"name": "Happy_Case",
+					"item": [
+						{
+							"name": "Registeration",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// pm.globals.set(\"email\",\r",
+											"//             '${Math.random().tostring(36).substring(7)}@example.com');\r",
+											"\r",
+											"// pm.globals.set(\"firstName\",\r",
+											"//             '${Math.random().tostring(36).substring(7)}');\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"Created\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//this test for the content type of the body in json file\r",
+											"pm.test(\"Content-Type is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});\r",
+											"//this test for the content type of the body in json file\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//the var of response body;;\r",
+											"let jsonResponse = pm.response.json();\r",
+											"//this test for the data type of the response body\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.access_token).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.userID).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.firstName).to.be.a('string');\r",
+											"});\r",
+											"//this test for the firstname in response\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    pm.expect(jsonResponse.lastName).to.eql(\"maghraby\");\r",
+											"});\r",
+											"\r",
+											"//this test for scema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"access_token\": { \"type\": \"string\" },\r",
+											"    \"userID\": { \"type\": \"string\" },\r",
+											"    \"firstName\": { \"type\": \"string\" }\r",
+											"    },\r",
+											"    \"required\":[\"access_token\",\"userID\",\"firstName\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"ahmedexq169@gmail.com\",\r\n     \"password\": \"Aa*01114860541£\",\r\n      \"firstName\": \"ahmed\",\r\n       \"lastName\": \"maghraby\"\r\n       }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}register",
+									"host": [
+										"{{url}}register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "invalid_scenario",
+					"item": [
+						{
+							"name": "email",
+							"item": [
+								{
+									"name": "register_with_exist_email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for the status is 201;\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"//tests for the name of the status is created\r",
+													"pm.test(\"check the name status code is created\",function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"//tests for the response time \r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"//this test for the content type of the body in json file\r",
+													"pm.test(\"Content-Type is present\", function () {\r",
+													"    pm.response.to.have.header(\"Content-Type\");\r",
+													"});\r",
+													"//this test for the content type of the body in json file\r",
+													"pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"var schema={\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\":{\r",
+													"        \"message\":\"Email is already exists in the Database\"\r",
+													"    },\r",
+													"    \"required\":[\"message\"]\r",
+													"};\r",
+													"\r",
+													"pm.test(\"schema is valid \",function(){\r",
+													"pm.expect(tv4.validate(pm.response.json(),schema)).to.be.true;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"check the message is already\",function(){\r",
+													"var jsonrespnse=pm.response.json();\r",
+													"pm.expect(jsonrespnse.message).to.eql(\"Email is already exists in the Database\")\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"abwalswda169@gmail.com\",\r\n     \"password\": \"Aa*01114860541£\",\r\n      \"firstName\": \"ahmed\",\r\n       \"lastName\": \"maghraby\"\r\n       }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}register",
+											"host": [
+												"{{url}}register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "register_with_empty_email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('\\\"email\\\" is not allowed to be empty')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"\",\r\n     \"password\": \"Aa*01114860541£\",\r\n      \"firstName\": \"ahmed\",\r\n       \"lastName\": \"maghraby\"\r\n       }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}register",
+											"host": [
+												"{{url}}register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "register_with_invalid_email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('\\\"email\\\" must be a valid email')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"abwalswd#@a169gamail.con\",\r\n     \"password\": \"Aa*01114860541£\",\r\n      \"firstName\": \"ahmed\",\r\n       \"lastName\": \"maghraby\"\r\n       }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}register",
+											"host": [
+												"{{url}}register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Password",
+							"item": [
+								{
+									"name": "register_with_long_password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('\\\"password\\\" must be a valid password')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"aaboelsoudasmgh688@gmail.com\",\r\n     \"password\": \"Aa*01114860541£7@#%EEERERE#2233446565778768989hghghghg@!#@#@!@%$#*&():asdsa@!#!@#$!@#@!$5646332421789007543245673sdgsdvsfdfsdf\",\r\n      \"firstName\": \"ahmed\",\r\n       \"lastName\": \"maghraby\"\r\n       }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}register",
+											"host": [
+												"{{url}}register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "register_with_empty_pass",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('\\\"password\\\" is not allowed to be empty')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedmaghr21@gmail.com\",\r\n     \"password\": \"\",\r\n      \"firstName\": \"ahmed\",\r\n       \"lastName\": \"maghraby\"\r\n       }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}register",
+											"host": [
+												"{{url}}register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "register_with_short_pass",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('\\\"password\\\" length must be at least 8 characters long')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedmagsahr21@gmail.com\",\r\n     \"password\": \"as1\",\r\n      \"firstName\": \"ahmed\",\r\n       \"lastName\": \"maghraby\"\r\n       }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}register",
+											"host": [
+												"{{url}}register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Name",
+							"item": [
+								{
+									"name": "register_with_long_firstname",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('\\\"firstName\\\\\" firstname must in range 16 character ')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedmagsahr5gfyr21@gmail.com\",\r\n     \"password\": \"as1gkkjjjjo54545\",\r\n      \"firstName\": \"ahmedb@32aoel   soudmgharbyabelrady\",\r\n       \"lastName\": \"maghraby\"\r\n       }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}register",
+											"host": [
+												"{{url}}register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "redister_with_short_firstname",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('\\\"firstName\\\" length must be at least 2 characters long')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedmagsoahr5gfyr21@gmail.com\",\r\n     \"password\": \"as1gkkjjjjo54545\",\r\n      \"firstName\": \"a\",\r\n       \"lastName\": \"maghraby\"\r\n       }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}register",
+											"host": [
+												"{{url}}register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "registr_with_invalid_lastname",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('\\\"firstName\\\" lastName must be not contain on speical cha and space and number')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedmaegsoahrd5gfyr21@gmail.com\",\r\n     \"password\": \"as1gkkjjjjo54545\",\r\n      \"firstName\": \"ahmed12\",\r\n       \"lastName\": \"magh r@aby\"\r\n       }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}register",
+											"host": [
+												"{{url}}register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "login feature",
+			"item": [
+				{
+					"name": "valid scenario",
+					"item": [
+						{
+							"name": "login_with_valid_data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"OK\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//this test for the content type of the body in json file\r",
+											"pm.test(\"Content-Type is present\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\");\r",
+											"});\r",
+											"//this test for the content type of the body in json file\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//the var of response body;;\r",
+											"let jsonResponse = pm.response.json();\r",
+											"//this test for the data type of the response body\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.access_token).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.userID).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.firstName).to.be.a('string');\r",
+											"});\r",
+											"//this test for the firstname in response\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    pm.expect(jsonResponse.lastName).to.eql(\"ahmed\");\r",
+											"});\r",
+											"\r",
+											"//this test for scema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"access_token\": { \"type\": \"string\" },\r",
+											"    \"userID\": { \"type\": \"string\" },\r",
+											"    \"firstName\": { \"type\": \"string\" }\r",
+											"    },\r",
+											"    \"required\":[\"access_token\",\"userID\",\"firstName\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});\r",
+											"\r",
+											"//this token var\r",
+											"var jsonData = pm.response.json();\r",
+											"var logintoken =jsonData.access_token;\r",
+											"pm.globals.set(\"Token\", logintoken);\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"ahmedex169@gmail.com\",\r\n     \"password\": \"Aa*01114860541£\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}login",
+									"host": [
+										"{{url}}login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "invalid scenario",
+					"item": [
+						{
+							"name": "Email",
+							"item": [
+								{
+									"name": "login_with_invaild_email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('Please Fill a correct Email')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedex169gamail_con\",\r\n     \"password\": \"Aa*01114860541£\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}login",
+											"host": [
+												"{{url}}login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "login_with_not_exits_email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('Not registered Email')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"shadtyty9gamail_con\",\r\n     \"password\": \"Aa*01114860541£\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}login",
+											"host": [
+												"{{url}}login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "login_with_empty_email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('\\\"email\\\" is not allowed to be empty')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"\",\r\n     \"password\": \"Aa*01114860541£\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}login",
+											"host": [
+												"{{url}}login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Password",
+							"item": [
+								{
+									"name": "login_with_long_pass",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('Please Fill a correct Password')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedex169gamail_con\",\r\n     \"password\": \"Aa*01114860541£dfgdgghghffhjgjhgkjhkjjl;456457657578689897908980989089890898ikhjkjkh\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}login",
+											"host": [
+												"{{url}}login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "login_with_short_pass",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('Please Fill a correct Password')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedex169gamail_con\",\r\n     \"password\": \"Ai\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}login",
+											"host": [
+												"{{url}}login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "login_with_empty_pass",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(400)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Bad Request\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('Please Fill a correct Password')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedex169@gmail.com\",\r\n     \"password\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}login",
+											"host": [
+												"{{url}}login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "login_with_invalid_pass",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"//tests for status code\r",
+													"pm.test(\"status code is 400 \", function(){\r",
+													"pm.response.to.have.status(401)\r",
+													"});\r",
+													"\r",
+													"//test for the status code is bad request \r",
+													"pm.test(\"status name is Bad Request \", function(){\r",
+													"pm.response.to.have.status(\"Unauthorized\")\r",
+													"});\r",
+													"\r",
+													"//test for the response time \r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+													"});\r",
+													"\r",
+													"//test for the the response body in valid format\r",
+													"let responsejson=pm.response.json();\r",
+													"pm.test(\"the response body must is correct format\",function(){\r",
+													"pm.expect(responsejson.message).to.be.a('string')\r",
+													"});\r",
+													"\r",
+													"//test for the response body is correct\r",
+													"pm.test(\"check the response body is valid\",function(){\r",
+													"pm.expect(responsejson.message).to.eql('The email and password combination is not correct, please fill a correct email and password')\r",
+													"});\r",
+													"\r",
+													"//test for the content-type is type of json\r",
+													"\r",
+													" pm.test(\"Content-type is json\", function () {\r",
+													"    pm.response.to.be.json;\r",
+													"});\r",
+													"\r",
+													"//test for the schema\r",
+													"//this test for scema format\r",
+													"var schema = {\r",
+													"    \"type\":\"object\",\r",
+													"    \"properties\" :{\r",
+													"    \"message\": { \"type\": \"string\" },\r",
+													"    },\r",
+													"    \"required\":[\"message\"],\r",
+													"    };\r",
+													"pm.test(\"the scema is valid\",function()\r",
+													"{\r",
+													"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"ahmedex169@gmail.com\",\r\n     \"password\": \"Aa*01114860541#\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}login",
+											"host": [
+												"{{url}}login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tasks feature",
+			"item": [
+				{
+					"name": "Happy_scenario",
+					"item": [
+						{
+							"name": "get_tasks",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"OK\")\r",
+											"});\r",
+											"\r",
+											"//tests for the response time \r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_new_task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"Created\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.isCompleted).to.be.a('boolean');\r",
+											"    pm.expect(jsonResponse._id).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.item).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.userID).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.item).to.eql(\"maunal Testing\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"isCompleted\": { \"type\": \"boolean\" },\r",
+											"    \"_id\": { \"type\": \"string\" },\r",
+											"    \"item\": { \"type\": \"string\" },\r",
+											"    \"userID\": { \"type\": \"string\" },\r",
+											"    //\"createdAt\": { \"type\": \"datetime\" },\r",
+											"    //\"__v\": { \"type\": \"integers\" }\r",
+											"    },\r",
+											"    \"required\":[\"isCompleted\",\"_id\",\"item\",\"userID\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"API Testing\", \r\n    \"isCompleted\": false\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "invalid scenario",
+					"item": [
+						{
+							"name": "add_task_with_shortItem",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"Bad Request\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"\\\"item\\\" length must be at least 3 characters long\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"m\", \r\n    \"isCompleted\": false\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_task_with_longItem",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"Bad Request\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"\\\"item\\\" length must be in 128 characters long\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"massssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssfdsafg dsgdsg sdgdsgds sdvsvbdsvdsbgsdfvsd v  sdbsdbvdsvsd svsd323\", \r\n    \"isCompleted\": false\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_task_with_emptyItem",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"Bad Request\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"\\\"item\\\" is not allowed to be empty\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"\", \r\n    \"isCompleted\": false\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_task_without_Item_name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"Bad Request\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"\\\"item\\\" is required\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"isCompleted\": false\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_task_with_added 3spaces firstly in item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"Bad Request\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"\\\"item\\\" is not allowed to add space in the first item name\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"   \", \r\n    \"isCompleted\": false\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_task_invalid_iscompeleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"Bad Request\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"\\\"isCompleted\\\" must be a boolean\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"ahmed\", \r\n    \"isCompleted\": \"ss\"\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_task_without_iscompeleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"Bad Request\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.eql(\"\\\"isCompleted\\\" is required\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"ahmed\"\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "update_delete_tasks",
+					"item": [
+						{
+							"name": "get_all_tasks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update_task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"OK\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.isCompleted).to.be.a('boolean');\r",
+											"    pm.expect(jsonResponse._id).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.item).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.userID).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.item).to.eql(\"automation Testing\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"isCompleted\": { \"type\": \"boolean\" },\r",
+											"    \"_id\": { \"type\": \"string\" },\r",
+											"    \"item\": { \"type\": \"string\" },\r",
+											"    \"userID\": { \"type\": \"string\" },\r",
+											"    //\"createdAt\": { \"type\": \"datetime\" },\r",
+											"    //\"__v\": { \"type\": \"integers\" }\r",
+											"    },\r",
+											"    \"required\":[\"isCompleted\",\"_id\",\"item\",\"userID\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"automation Testing\", \r\n    \"isCompleted\": false\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}//6733f87b3d4b3000144e7016",
+									"host": [
+										"{{url_tasks}}"
+									],
+									"path": [
+										"",
+										"6733f87b3d4b3000144e7016"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for the status is 201;\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"//tests for the name of the status is created\r",
+											"pm.test(\"check the name status code is created\",function(){\r",
+											"pm.response.to.have.status(\"OK\")\r",
+											"});\r",
+											"//tests for the response time \r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"//test for data type of response\r",
+											"let jsonResponse = pm.response.json();\r",
+											"pm.test(\"the response data must be in correct format\", function () {\r",
+											"    pm.expect(jsonResponse.isCompleted).to.be.a('boolean');\r",
+											"    pm.expect(jsonResponse._id).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.item).to.be.a('string');\r",
+											"    pm.expect(jsonResponse.userID).to.be.a('string');\r",
+											"});\r",
+											"\r",
+											"//test for the item name\r",
+											"pm.test(\"Your item name\", function () {\r",
+											"    pm.expect(jsonResponse.item).to.eql(\"automation Testing\");\r",
+											"});\r",
+											"\r",
+											"//test for the content type\r",
+											"pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"isCompleted\": { \"type\": \"boolean\" },\r",
+											"    \"_id\": { \"type\": \"string\" },\r",
+											"    \"item\": { \"type\": \"string\" },\r",
+											"    \"userID\": { \"type\": \"string\" },\r",
+											"    //\"createdAt\": { \"type\": \"datetime\" },\r",
+											"    //\"__v\": { \"type\": \"integers\" }\r",
+											"    },\r",
+											"    \"required\":[\"isCompleted\",\"_id\",\"item\",\"userID\"]\r",
+											"};\r",
+											"\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url_tasks}}/6734b7753bc19b00140034dd",
+									"host": [
+										"{{url_tasks}}"
+									],
+									"path": [
+										"6734b7753bc19b00140034dd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_given_tasks_after_dele",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for status code\r",
+											"pm.test(\"status code is 404 \", function(){\r",
+											"pm.response.to.have.status(404)\r",
+											"});\r",
+											"\r",
+											"//test for the status code is bad request \r",
+											"pm.test(\"status name is Bad Request \", function(){\r",
+											"pm.response.to.have.status(\"Not Found\")\r",
+											"});\r",
+											"\r",
+											"//test for the response time \r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"\r",
+											"//test for the the response body in valid format\r",
+											"let responsejson=pm.response.json();\r",
+											"pm.test(\"the response body must is correct format\",function(){\r",
+											"pm.expect(responsejson.message).to.be.a('string')\r",
+											"});\r",
+											"\r",
+											"//test for the response body is correct\r",
+											"pm.test(\"check the response body is valid\",function(){\r",
+											"pm.expect(responsejson.message).to.eql('We could not find the task in our database')\r",
+											"});\r",
+											"\r",
+											"//test for the content-type is type of json\r",
+											"\r",
+											" pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema\r",
+											"//this test for scema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"],\r",
+											"    };\r",
+											"pm.test(\"the scema is valid\",function()\r",
+											"{\r",
+											"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url_tasks}}/6734b7753bc19b00140034dd",
+									"host": [
+										"{{url_tasks}}"
+									],
+									"path": [
+										"6734b7753bc19b00140034dd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_deleted_task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for status code\r",
+											"pm.test(\"status code is 400 \", function(){\r",
+											"pm.response.to.have.status(400)\r",
+											"});\r",
+											"\r",
+											"//test for the status code is bad request \r",
+											"pm.test(\"status name is Bad Request \", function(){\r",
+											"pm.response.to.have.status(\"Bad Request\")\r",
+											"});\r",
+											"\r",
+											"//test for the response time \r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"\r",
+											"//test for the the response body in valid format\r",
+											"let responsejson=pm.response.json();\r",
+											"pm.test(\"the response body must is correct format\",function(){\r",
+											"pm.expect(responsejson.message).to.be.a('string')\r",
+											"});\r",
+											"\r",
+											"//test for the response body is correct\r",
+											"pm.test(\"check the response body is valid\",function(){\r",
+											"pm.expect(responsejson.message).to.eql('We could not find the task in our database')\r",
+											"});\r",
+											"\r",
+											"//test for the content-type is type of json\r",
+											"\r",
+											" pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema\r",
+											"//this test for scema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"],\r",
+											"    };\r",
+											"pm.test(\"the scema is valid\",function()\r",
+											"{\r",
+											"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url_tasks}}/6734b7753bc19b00140034dd",
+									"host": [
+										"{{url_tasks}}"
+									],
+									"path": [
+										"6734b7753bc19b00140034dd"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "tasks_without_auth",
+					"item": [
+						{
+							"name": "get_without_auth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for status code\r",
+											"pm.test(\"status code is 400 \", function(){\r",
+											"pm.response.to.have.status(401)\r",
+											"});\r",
+											"\r",
+											"//test for the status code is bad request \r",
+											"pm.test(\"status name is Bad Request \", function(){\r",
+											"pm.response.to.have.status(\"Unauthorized\")\r",
+											"});\r",
+											"\r",
+											"//test for the response time \r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"\r",
+											"//test for the the response body in valid format\r",
+											"let responsejson=pm.response.json();\r",
+											"pm.test(\"the response body must is correct format\",function(){\r",
+											"pm.expect(responsejson.message).to.be.a('string')\r",
+											"});\r",
+											"\r",
+											"//test for the response body is correct\r",
+											"pm.test(\"check the response body is valid\",function(){\r",
+											"pm.expect(responsejson.message).to.eql('Unauthorized, please insert a correct token')\r",
+											"});\r",
+											"\r",
+											"//test for the content-type is type of json\r",
+											"\r",
+											" pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema\r",
+											"//this test for scema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"],\r",
+											"    };\r",
+											"pm.test(\"the scema is valid\",function()\r",
+											"{\r",
+											"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_task_without_auth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for status code\r",
+											"pm.test(\"status code is 400 \", function(){\r",
+											"pm.response.to.have.status(401)\r",
+											"});\r",
+											"\r",
+											"//test for the status code is bad request \r",
+											"pm.test(\"status name is Bad Request \", function(){\r",
+											"pm.response.to.have.status(\"Unauthorized\")\r",
+											"});\r",
+											"\r",
+											"//test for the response time \r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"\r",
+											"//test for the the response body in valid format\r",
+											"let responsejson=pm.response.json();\r",
+											"pm.test(\"the response body must is correct format\",function(){\r",
+											"pm.expect(responsejson.message).to.be.a('string')\r",
+											"});\r",
+											"\r",
+											"//test for the response body is correct\r",
+											"pm.test(\"check the response body is valid\",function(){\r",
+											"pm.expect(responsejson.message).to.eql('Unauthorized, please insert a correct token')\r",
+											"});\r",
+											"\r",
+											"//test for the content-type is type of json\r",
+											"\r",
+											" pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema\r",
+											"//this test for scema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"],\r",
+											"    };\r",
+											"pm.test(\"the scema is valid\",function()\r",
+											"{\r",
+											"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"API Testing\", \r\n    \"isCompleted\": false\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}",
+									"host": [
+										"{{url_tasks}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update_task_without_auth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for status code\r",
+											"pm.test(\"status code is 400 \", function(){\r",
+											"pm.response.to.have.status(401)\r",
+											"});\r",
+											"\r",
+											"//test for the status code is bad request \r",
+											"pm.test(\"status name is Bad Request \", function(){\r",
+											"pm.response.to.have.status(\"Unauthorized\")\r",
+											"});\r",
+											"\r",
+											"//test for the response time \r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"\r",
+											"//test for the the response body in valid format\r",
+											"let responsejson=pm.response.json();\r",
+											"pm.test(\"the response body must is correct format\",function(){\r",
+											"pm.expect(responsejson.message).to.be.a('string')\r",
+											"});\r",
+											"\r",
+											"//test for the response body is correct\r",
+											"pm.test(\"check the response body is valid\",function(){\r",
+											"pm.expect(responsejson.message).to.eql('Unauthorized, please insert a correct token')\r",
+											"});\r",
+											"\r",
+											"//test for the content-type is type of json\r",
+											"\r",
+											" pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema\r",
+											"//this test for scema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"],\r",
+											"    };\r",
+											"pm.test(\"the scema is valid\",function()\r",
+											"{\r",
+											"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"item\": \"automation Testing\", \r\n    \"isCompleted\": false\r\n    }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_tasks}}/6733f87b3d4b3000144e7016",
+									"host": [
+										"{{url_tasks}}"
+									],
+									"path": [
+										"6733f87b3d4b3000144e7016"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_task_without_auth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//tests for status code\r",
+											"pm.test(\"status code is 400 \", function(){\r",
+											"pm.response.to.have.status(401)\r",
+											"});\r",
+											"\r",
+											"//test for the status code is bad request \r",
+											"pm.test(\"status name is Bad Request \", function(){\r",
+											"pm.response.to.have.status(\"Unauthorized\")\r",
+											"});\r",
+											"\r",
+											"//test for the response time \r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});\r",
+											"\r",
+											"//test for the the response body in valid format\r",
+											"let responsejson=pm.response.json();\r",
+											"pm.test(\"the response body must is correct format\",function(){\r",
+											"pm.expect(responsejson.message).to.be.a('string')\r",
+											"});\r",
+											"\r",
+											"//test for the response body is correct\r",
+											"pm.test(\"check the response body is valid\",function(){\r",
+											"pm.expect(responsejson.message).to.eql('Unauthorized, please insert a correct token')\r",
+											"});\r",
+											"\r",
+											"//test for the content-type is type of json\r",
+											"\r",
+											" pm.test(\"Content-type is json\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"//test for the schema\r",
+											"//this test for scema format\r",
+											"var schema = {\r",
+											"    \"type\":\"object\",\r",
+											"    \"properties\" :{\r",
+											"    \"message\": { \"type\": \"string\" },\r",
+											"    },\r",
+											"    \"required\":[\"message\"],\r",
+											"    };\r",
+											"pm.test(\"the scema is valid\",function()\r",
+											"{\r",
+											"pm.expect(tv4.validate(responsejson,schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url_tasks}}/6734bdb03bc19b00140034eb",
+									"host": [
+										"{{url_tasks}}"
+									],
+									"path": [
+										"6734bdb03bc19b00140034eb"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{Token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
