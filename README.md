@@ -1,6 +1,6 @@
 # ToDo QAcart API Testing
 
-This repository contains tests for the ToDo QAcart API, focusing on the registration, login, and task management features. The tests utilize various HTTP request methods (GET, POST, PUT, DELETE) to ensure the functionality and reliability of the API endpoints.
+This repository contains tests for the ToDo QAcart API Without documentation, focusing on the registration, login, and task management features. The tests utilize various HTTP request methods (GET, POST, PUT, DELETE) to ensure the functionality and reliability of the API endpoints.
 
 ## API Endpoints
 
